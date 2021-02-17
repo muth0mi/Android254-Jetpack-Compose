@@ -1,4 +1,4 @@
-package app.compose
+package app.compose.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

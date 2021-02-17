@@ -1,4 +1,4 @@
-rootProject.name = "Droidcon Compose"
+rootProject.name = "Compose"
 include(
     ":app"
 )
