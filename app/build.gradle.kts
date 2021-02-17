@@ -1,18 +1,21 @@
+import app.buildsrc.ProjectProperties
+import app.buildsrc.Dependencies
+
 plugins {
-    id("com.android.application")
-    id("kotlin-android")
+    id(app.buildsrc.Plugins.androidApplication)
+    id(app.buildsrc.Plugins.kotlinAndroid)
 }
 
 android {
-    compileSdkVersion(30)
-    buildToolsVersion("30.0.3")
+    compileSdkVersion(ProjectProperties.SDK.Versions.compile)
+    buildToolsVersion(ProjectProperties.SDK.Versions.buildTools)
     defaultConfig {
-        applicationId = "app.compose"
-        minSdkVersion(21)
-        targetSdkVersion(30)
-        versionCode = 1
-        versionName = "1.0"
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        applicationId = ProjectProperties.App.id
+        versionCode = ProjectProperties.App.Version.code
+        versionName = ProjectProperties.App.Version.name
+        minSdkVersion(ProjectProperties.SDK.Versions.minimum)
+        targetSdkVersion(ProjectProperties.SDK.Versions.target)
+        testInstrumentationRunner = ProjectProperties.testRunner
     }
     buildTypes {
         getByName("release") { isMinifyEnabled = false }
@@ -26,18 +29,23 @@ android {
         useIR = true
     }
     buildFeatures { compose = true }
-    composeOptions { kotlinCompilerExtensionVersion = "1.0.0-alpha08" }
+    composeOptions { kotlinCompilerExtensionVersion = Dependencies.AndroidX.Compose.version }
 }
 
 dependencies {
-    implementation("androidx.core:core-ktx:1.3.2")
-    implementation("androidx.appcompat:appcompat:1.2.0")
-    implementation("com.google.android.material:material:1.3.0")
-    implementation("androidx.compose.ui:ui:1.0.0-alpha08")
-    implementation("androidx.compose.material:material:1.0.0-alpha08")
-    implementation("androidx.compose.ui:ui-tooling:1.0.0-alpha08")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.0")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.2")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
+    implementation(Dependencies.Material.material)
+
+    implementation(Dependencies.AndroidX.core)
+    implementation(Dependencies.AndroidX.appcompat)
+
+    implementation(Dependencies.AndroidX.Compose.ui)
+    implementation(Dependencies.AndroidX.Compose.uiTooling)
+    implementation(Dependencies.AndroidX.Compose.material)
+    implementation(Dependencies.AndroidX.Compose.runtimeLivedata)
+
+    implementation(Dependencies.AndroidX.Lifecycle.runtime)
+
+    testImplementation(Dependencies.Junit.junit)
+    androidTestImplementation(Dependencies.AndroidX.Test.extJunit)
+    androidTestImplementation(Dependencies.AndroidX.Test.espressoCore)
 }
