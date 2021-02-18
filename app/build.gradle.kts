@@ -41,6 +41,7 @@ dependencies {
     implementation(Dependencies.AndroidX.Compose.ui)
     implementation(Dependencies.AndroidX.Compose.uiTooling)
     implementation(Dependencies.AndroidX.Compose.material)
+    implementation(Dependencies.AndroidX.Compose.materialIcons)
     implementation(Dependencies.AndroidX.Compose.runtimeLivedata)
 
     implementation(Dependencies.AndroidX.Lifecycle.runtime)

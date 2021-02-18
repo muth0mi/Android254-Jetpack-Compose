@@ -1,12 +1,16 @@
 package app.compose.ui
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -20,12 +24,15 @@ import app.compose.ui.components.HomeToolbarContent
 import app.compose.ui.components.SessionsToolbarContent
 import app.compose.ui.theme.ComposeTheme
 import app.compose.ui.theme.black
+import app.compose.ui.theme.fadedAquaMarine
 import app.compose.ui.theme.white
 
 @Preview
 @Composable
 fun ComposeApp(name: String = "Compose") {
     val navController = rememberNavController()
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.arguments?.getString(KEY_ROUTE)
     val bottomNavigationItems = listOf(
         BottomNavigationScreens.Home,
         BottomNavigationScreens.Feed,
@@ -35,29 +42,35 @@ fun ComposeApp(name: String = "Compose") {
 
     ComposeTheme {
         Scaffold(
-            topBar = { TopBar(navController) },
+            topBar = { TopBar(navController, currentRoute) },
             bodyContent = { Screens(navController) },
-            bottomBar = { BottomBar(navController, bottomNavigationItems) }
+            bottomBar = { BottomBar(navController, currentRoute, bottomNavigationItems) }
         )
     }
 }
 
 @Composable
-private fun TopBar(navController: NavHostController) {
-    val toolbarContent = when (navController.currentDestination.toString()) {
-        BottomNavigationScreens.Home.route -> HomeToolbarContent()
-        BottomNavigationScreens.Feed.route -> FeedToolbarContent()
-        BottomNavigationScreens.Sessions.route -> SessionsToolbarContent()
-        BottomNavigationScreens.About.route -> AboutToolbarContent()
-        else -> Text(text = stringResource(id = R.string.app_name))
-    }
-
+private fun TopBar(navController: NavHostController, currentRoute: String?) {
     TopAppBar(
-        navigationIcon = { IconButton(onClick = {}) { Icon(Icons.Filled.Info) } },
-        title = { toolbarContent },
-        actions = { IconButton(onClick = {}) { Icon(Icons.Filled.AccountCircle) } },
+        elevation = 0.dp,
         backgroundColor = MaterialTheme.colors.background,
-        elevation = 0.dp
+        navigationIcon = { IconButton(onClick = {}) { Icon(Icons.Filled.Info) } },
+        actions = { IconButton(onClick = {}) { Icon(Icons.Filled.AccountCircle) } },
+        title = {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceAround,
+                modifier = Modifier.fillMaxWidth().padding(end = 24.dp)
+            ) {
+                when (currentRoute) {
+                    BottomNavigationScreens.Home.route -> HomeToolbarContent()
+                    BottomNavigationScreens.Feed.route -> FeedToolbarContent()
+                    BottomNavigationScreens.Sessions.route -> SessionsToolbarContent()
+                    BottomNavigationScreens.About.route -> AboutToolbarContent()
+                    else -> Text(text = stringResource(id = R.string.app_name))
+                }
+            }
+        }
     )
 }
 
@@ -72,10 +85,10 @@ private fun Screens(navController: NavHostController) {
 }
 
 @Composable
-fun BottomBar(navController: NavHostController, items: List<BottomNavigationScreens>) {
-    val backgroundColor = if (isSystemInDarkTheme()) MaterialTheme.colors.surface else black;
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentRoute = navBackStackEntry?.arguments?.getString(KEY_ROUTE)
+fun BottomBar(
+    navController: NavHostController, currentRoute: String?, items: List<BottomNavigationScreens>
+) {
+    val backgroundColor = if (isSystemInDarkTheme()) MaterialTheme.colors.surface else black
 
     BottomNavigation(backgroundColor = backgroundColor) {
         items.forEach { screen ->

@@ -50,6 +50,7 @@ object Dependencies {
             const val ui = "androidx.compose.ui:ui:$version"
             const val uiTooling = "androidx.compose.ui:ui-tooling:$version"
             const val material = "androidx.compose.material:material:$version"
+            const val materialIcons = "androidx.compose.material:material-icons-extended:$version"
             const val runtimeLivedata = "androidx.compose.runtime:runtime-livedata:$version"
         }
 
