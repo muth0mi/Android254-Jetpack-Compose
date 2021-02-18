@@ -9,7 +9,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.*
 
-class HomeToolbarContentViewModel : ViewModel() {
+class CountdownViewModel : ViewModel() {
     private val _dayCounter = MutableLiveData<Long>(0)
     val dayCounter get() = _dayCounter
 

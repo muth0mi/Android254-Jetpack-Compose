@@ -17,10 +17,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.*
 import app.compose.R
 import app.compose.data.BottomNavigationScreens
-import app.compose.ui.dashboard.AboutToolbarContent
-import app.compose.ui.dashboard.FeedToolbarContent
-import app.compose.ui.dashboard.HomeToolbarContent
-import app.compose.ui.dashboard.SessionsToolbarContent
+import app.compose.ui.dashboard.*
 import app.compose.ui.theme.ComposeTheme
 import app.compose.ui.theme.black
 import app.compose.ui.theme.white
@@ -80,7 +77,7 @@ private fun Screens(navController: NavHostController) {
     NavHost(navController, startDestination = BottomNavigationScreens.Home.route) {
         composable(BottomNavigationScreens.Home.route) { Text(it.toString()) }
         composable(BottomNavigationScreens.Feed.route) { Text(it.toString()) }
-        composable(BottomNavigationScreens.Sessions.route) { Text(it.toString()) }
+        composable(BottomNavigationScreens.Sessions.route) { SessionsScreen() }
         composable(BottomNavigationScreens.About.route) { Text(it.toString()) }
     }
 }

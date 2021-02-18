@@ -22,12 +22,12 @@ import androidx.compose.ui.viewinterop.viewModel
 import app.compose.R
 import app.compose.ui.theme.aquaMarine
 import app.compose.ui.theme.fadedAquaMarine
-import app.compose.viewmodels.HomeToolbarContentViewModel
+import app.compose.viewmodels.CountdownViewModel
 
 @Preview
 @Composable
 fun HomeToolbarContent(modifier: Modifier = Modifier) {
-    val viewModel: HomeToolbarContentViewModel = viewModel()
+    val viewModel: CountdownViewModel = viewModel()
     val dayCounter = viewModel.dayCounter.observeAsState(0).value
     val hourCounter = viewModel.hourCounter.observeAsState(0).value
     val minuteCounter = viewModel.minuteCounter.observeAsState(0).value
