@@ -18,7 +18,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.viewinterop.viewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import app.compose.R
 import app.compose.ui.theme.aquaMarine
 import app.compose.ui.theme.fadedAquaMarine
@@ -38,7 +38,7 @@ fun HomeToolbarContent(modifier: Modifier = Modifier) {
         .padding(horizontal = 16.dp)
 
     Row(verticalAlignment = Alignment.CenterVertically, modifier = modifier) {
-        Icon(Icons.Rounded.Alarm, tint = aquaMarine)
+        Icon(Icons.Rounded.Alarm, "", tint = aquaMarine)
         CounterDownItem("$dayCounter", stringResource(R.string.days))
         CounterDownItem("$hourCounter", stringResource(R.string.hrs))
         CounterDownItem("$minuteCounter", stringResource(R.string.min))

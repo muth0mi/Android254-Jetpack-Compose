@@ -4,8 +4,7 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -14,14 +13,18 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.*
+import androidx.navigation.compose.KEY_ROUTE
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.navigate
 import app.compose.R
 import app.compose.data.BottomNavigationScreens
 import app.compose.ui.dashboard.*
 import app.compose.ui.theme.ComposeTheme
 import app.compose.ui.theme.black
 import app.compose.ui.theme.white
-import java.util.*
 
 @Preview
 @Composable
@@ -52,8 +55,8 @@ private fun TopBar(navController: NavHostController, currentRoute: String?) {
     TopAppBar(
         elevation = 1.dp,
         backgroundColor = MaterialTheme.colors.background,
-        navigationIcon = { IconButton(onClick = {}) { Icon(Icons.Filled.Info) } },
-        actions = { IconButton(onClick = {}) { Icon(Icons.Filled.AccountCircle) } },
+        navigationIcon = { IconButton(onClick = {}) { Icon(Icons.Filled.Info,"") } },
+        actions = { IconButton(onClick = {}) { Icon(Icons.Filled.AccountCircle,"") } },
         title = {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -91,7 +94,7 @@ fun BottomBar(
     BottomNavigation(backgroundColor = backgroundColor) {
         items.forEach { screen ->
             BottomNavigationItem(
-                icon = { Icon(screen.icon) },
+                icon = { Icon(screen.icon,"") },
                 label = { Text(stringResource(id = screen.labelId)) },
                 selected = currentRoute == screen.route,
                 alwaysShowLabels = true,

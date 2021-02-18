@@ -1,13 +1,12 @@
 package app.compose.viewmodels
 
-import androidx.compose.ui.unit.Duration
-import androidx.compose.ui.unit.inMilliseconds
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.util.*
+import java.util.Calendar
+import java.util.concurrent.TimeUnit
 
 class CountdownViewModel : ViewModel() {
     private val _dayCounter = MutableLiveData<Long>(0)
@@ -25,7 +24,7 @@ class CountdownViewModel : ViewModel() {
         viewModelScope.launch {
             while (true) {
                 updateCountdown(dDay)
-                delay(Duration(minutes = 1).inMilliseconds())
+                delay(TimeUnit.MINUTES.toMillis(1))
             }
         }
     }
@@ -34,12 +33,12 @@ class CountdownViewModel : ViewModel() {
         val daysLeftInMillis: Long = dDay.timeInMillis - Calendar.getInstance().timeInMillis
         if (daysLeftInMillis <= 0) return
 
-        _dayCounter.value = (daysLeftInMillis / Duration(days = 1).inMilliseconds())
-        val hoursLeftInMillis: Long = daysLeftInMillis % Duration(days = 1).inMilliseconds()
+        _dayCounter.value = daysLeftInMillis / TimeUnit.DAYS.toMillis(1)
+        val hoursLeftInMillis: Long = daysLeftInMillis % TimeUnit.DAYS.toMillis(1)
 
-        _hourCounter.value = (hoursLeftInMillis / Duration(hours = 1).inMilliseconds())
-        val minutesLeftInMillis = daysLeftInMillis % Duration(hours = 1).inMilliseconds()
+        _hourCounter.value = hoursLeftInMillis / TimeUnit.HOURS.toMillis(1)
+        val minutesLeftInMillis = daysLeftInMillis % TimeUnit.MINUTES.toMillis(1)
 
-        _minuteCounter.value = minutesLeftInMillis / Duration(minutes = 1).inMilliseconds()
+        _minuteCounter.value = minutesLeftInMillis / TimeUnit.MINUTES.toMillis(1)
     }
 }

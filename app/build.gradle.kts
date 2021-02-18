@@ -35,6 +35,8 @@ android {
 dependencies {
     implementation(Dependencies.Material.material)
 
+    implementation(Dependencies.Activity.activity)
+
     implementation(Dependencies.AndroidX.core)
     implementation(Dependencies.AndroidX.appcompat)
 
@@ -46,6 +48,7 @@ dependencies {
 
     implementation(Dependencies.AndroidX.Lifecycle.runtime)
     implementation(Dependencies.AndroidX.Lifecycle.livedata)
+    implementation(Dependencies.AndroidX.Lifecycle.viewModel)
 
     implementation(Dependencies.AndroidX.Navigation.composeNavigation)
 
