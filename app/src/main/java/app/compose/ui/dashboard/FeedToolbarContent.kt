@@ -1,14 +1,13 @@
-package app.compose.ui.components
+package app.compose.ui.dashboard
 
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 
-@Composable
-fun HomeToolbarContent(modifier: Modifier = Modifier)= Text("Sessions")
-
+@Preview
 @Composable
 fun FeedToolbarContent(modifier: Modifier = Modifier) = Text(
     text = "Feed",
@@ -17,9 +16,3 @@ fun FeedToolbarContent(modifier: Modifier = Modifier) = Text(
     textAlign = TextAlign.Center,
     modifier = modifier
 )
-
-@Composable
-fun SessionsToolbarContent(modifier: Modifier = Modifier) = Text("Sessions")
-
-@Composable
-fun AboutToolbarContent(modifier: Modifier = Modifier) = Text("About")

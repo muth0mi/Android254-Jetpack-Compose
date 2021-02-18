@@ -1,6 +1,5 @@
 package app.compose.ui
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -18,14 +17,14 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.*
 import app.compose.R
 import app.compose.data.BottomNavigationScreens
-import app.compose.ui.components.AboutToolbarContent
-import app.compose.ui.components.FeedToolbarContent
-import app.compose.ui.components.HomeToolbarContent
-import app.compose.ui.components.SessionsToolbarContent
+import app.compose.ui.dashboard.AboutToolbarContent
+import app.compose.ui.dashboard.FeedToolbarContent
+import app.compose.ui.dashboard.HomeToolbarContent
+import app.compose.ui.dashboard.SessionsToolbarContent
 import app.compose.ui.theme.ComposeTheme
 import app.compose.ui.theme.black
-import app.compose.ui.theme.fadedAquaMarine
 import app.compose.ui.theme.white
+import java.util.*
 
 @Preview
 @Composable
@@ -51,8 +50,10 @@ fun ComposeApp(name: String = "Compose") {
 
 @Composable
 private fun TopBar(navController: NavHostController, currentRoute: String?) {
+    val modifier = Modifier.padding(6.dp).fillMaxHeight()
+
     TopAppBar(
-        elevation = 0.dp,
+        elevation = 1.dp,
         backgroundColor = MaterialTheme.colors.background,
         navigationIcon = { IconButton(onClick = {}) { Icon(Icons.Filled.Info) } },
         actions = { IconButton(onClick = {}) { Icon(Icons.Filled.AccountCircle) } },
@@ -63,10 +64,10 @@ private fun TopBar(navController: NavHostController, currentRoute: String?) {
                 modifier = Modifier.fillMaxWidth().padding(end = 24.dp)
             ) {
                 when (currentRoute) {
-                    BottomNavigationScreens.Home.route -> HomeToolbarContent()
-                    BottomNavigationScreens.Feed.route -> FeedToolbarContent()
-                    BottomNavigationScreens.Sessions.route -> SessionsToolbarContent()
-                    BottomNavigationScreens.About.route -> AboutToolbarContent()
+                    BottomNavigationScreens.Home.route -> HomeToolbarContent(modifier)
+                    BottomNavigationScreens.Feed.route -> FeedToolbarContent(modifier)
+                    BottomNavigationScreens.Sessions.route -> SessionsToolbarContent(modifier)
+                    BottomNavigationScreens.About.route -> AboutToolbarContent(modifier)
                     else -> Text(text = stringResource(id = R.string.app_name))
                 }
             }

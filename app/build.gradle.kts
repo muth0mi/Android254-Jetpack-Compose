@@ -45,6 +45,8 @@ dependencies {
     implementation(Dependencies.AndroidX.Compose.runtimeLivedata)
 
     implementation(Dependencies.AndroidX.Lifecycle.runtime)
+    implementation(Dependencies.AndroidX.Lifecycle.livedata)
+
     implementation(Dependencies.AndroidX.Navigation.composeNavigation)
 
     testImplementation(Dependencies.Junit.junit)
