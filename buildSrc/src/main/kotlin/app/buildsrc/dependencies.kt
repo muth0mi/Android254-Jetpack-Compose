@@ -46,7 +46,7 @@ object Dependencies {
         const val appcompat = "androidx.appcompat:appcompat:1.2.0"
 
         object Compose {
-            const val version = "1.0.0-alpha09"
+            const val version = "1.0.0-alpha10"
             const val ui = "androidx.compose.ui:ui:$version"
             const val uiTooling = "androidx.compose.ui:ui-tooling:$version"
             const val material = "androidx.compose.material:material:$version"
@@ -59,10 +59,14 @@ object Dependencies {
             const val livedata = "androidx.lifecycle:lifecycle-livedata-ktx:$version"
         }
 
+        object Navigation {
+            private const val version = "1.0.0-alpha04"
+            const val composeNavigation = "androidx.navigation:navigation-compose:$version"
+        }
+
         object Test {
             const val espressoCore = "androidx.test.espresso:espresso-core:3.3.0"
             const val extJunit = "androidx.test.ext:junit-ktx:1.1.2"
         }
     }
-
 }

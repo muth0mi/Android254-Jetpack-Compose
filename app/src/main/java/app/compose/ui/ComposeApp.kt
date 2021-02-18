@@ -1,17 +1,93 @@
 package app.compose.ui
 
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.*
+import app.compose.R
+import app.compose.data.BottomNavigationScreens
+import app.compose.ui.components.AboutToolbarContent
+import app.compose.ui.components.FeedToolbarContent
+import app.compose.ui.components.HomeToolbarContent
+import app.compose.ui.components.SessionsToolbarContent
 import app.compose.ui.theme.ComposeTheme
+import app.compose.ui.theme.black
+import app.compose.ui.theme.white
 
 @Preview
 @Composable
 fun ComposeApp(name: String = "Compose") {
+    val navController = rememberNavController()
+    val bottomNavigationItems = listOf(
+        BottomNavigationScreens.Home,
+        BottomNavigationScreens.Feed,
+        BottomNavigationScreens.Sessions,
+        BottomNavigationScreens.About
+    )
+
     ComposeTheme {
         Scaffold(
-            bodyContent = { Text(text = "Hello $name!") }
+            topBar = { TopBar(navController) },
+            bodyContent = { Screens(navController) },
+            bottomBar = { BottomBar(navController, bottomNavigationItems) }
         )
+    }
+}
+
+@Composable
+private fun TopBar(navController: NavHostController) {
+    val toolbarContent = when (navController.currentDestination.toString()) {
+        BottomNavigationScreens.Home.route -> HomeToolbarContent()
+        BottomNavigationScreens.Feed.route -> FeedToolbarContent()
+        BottomNavigationScreens.Sessions.route -> SessionsToolbarContent()
+        BottomNavigationScreens.About.route -> AboutToolbarContent()
+        else -> Text(text = stringResource(id = R.string.app_name))
+    }
+
+    TopAppBar(
+        navigationIcon = { IconButton(onClick = {}) { Icon(Icons.Filled.Info) } },
+        title = { toolbarContent },
+        actions = { IconButton(onClick = {}) { Icon(Icons.Filled.AccountCircle) } },
+        backgroundColor = MaterialTheme.colors.background,
+        elevation = 0.dp
+    )
+}
+
+@Composable
+private fun Screens(navController: NavHostController) {
+    NavHost(navController, startDestination = BottomNavigationScreens.Home.route) {
+        composable(BottomNavigationScreens.Home.route) { Text(it.toString()) }
+        composable(BottomNavigationScreens.Feed.route) { Text(it.toString()) }
+        composable(BottomNavigationScreens.Sessions.route) { Text(it.toString()) }
+        composable(BottomNavigationScreens.About.route) { Text(it.toString()) }
+    }
+}
+
+@Composable
+fun BottomBar(navController: NavHostController, items: List<BottomNavigationScreens>) {
+    val backgroundColor = if (isSystemInDarkTheme()) MaterialTheme.colors.surface else black;
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.arguments?.getString(KEY_ROUTE)
+
+    BottomNavigation(backgroundColor = backgroundColor) {
+        items.forEach { screen ->
+            BottomNavigationItem(
+                icon = { Icon(screen.icon) },
+                label = { Text(stringResource(id = screen.labelId)) },
+                selected = currentRoute == screen.route,
+                alwaysShowLabels = true,
+                selectedContentColor = MaterialTheme.colors.secondary,
+                unselectedContentColor = white,
+                onClick = { if (currentRoute != screen.route) navController.navigate(screen.route) }
+            )
+        }
     }
 }
