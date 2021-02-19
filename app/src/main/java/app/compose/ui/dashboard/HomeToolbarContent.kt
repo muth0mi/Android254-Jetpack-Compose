@@ -27,10 +27,6 @@ import app.compose.viewmodels.CountdownViewModel
 @Preview
 @Composable
 fun HomeToolbarContent(modifier: Modifier = Modifier, viewModel: CountdownViewModel = viewModel()) {
-    val dayCounter = viewModel.dayCounter.observeAsState(0).value
-    val hourCounter = viewModel.hourCounter.observeAsState(0).value
-    val minuteCounter = viewModel.minuteCounter.observeAsState(0).value
-
     val modifier = modifier
         .clip(RoundedCornerShape(50))
         .background(fadedAquaMarine)
@@ -38,9 +34,9 @@ fun HomeToolbarContent(modifier: Modifier = Modifier, viewModel: CountdownViewMo
 
     Row(verticalAlignment = Alignment.CenterVertically, modifier = modifier) {
         Icon(Icons.Rounded.Alarm, "", tint = aquaMarine)
-        CounterDownItem("$dayCounter", stringResource(R.string.days))
-        CounterDownItem("$hourCounter", stringResource(R.string.hrs))
-        CounterDownItem("$minuteCounter", stringResource(R.string.min))
+        CounterDownItem("${viewModel.dayCounter.value}", stringResource(R.string.days))
+        CounterDownItem("${viewModel.hourCounter.value}", stringResource(R.string.hrs))
+        CounterDownItem("${viewModel.minuteCounter.value}", stringResource(R.string.min))
     }
 }
 

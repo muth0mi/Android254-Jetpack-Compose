@@ -37,6 +37,9 @@ dependencies {
 
     implementation(Dependencies.Activity.activity)
 
+    implementation("com.github.moove-it:fakeit:v0.5")
+
+
     implementation(Dependencies.AndroidX.core)
     implementation(Dependencies.AndroidX.appcompat)
 

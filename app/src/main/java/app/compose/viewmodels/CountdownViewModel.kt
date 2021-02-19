@@ -1,29 +1,24 @@
 package app.compose.viewmodels
 
-import androidx.lifecycle.MutableLiveData
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import app.compose.data.repository.EventRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.util.Calendar
+import java.util.*
 import java.util.concurrent.TimeUnit
 
-class CountdownViewModel : ViewModel() {
-    private val _dayCounter = MutableLiveData<Long>(0)
-    val dayCounter get() = _dayCounter
-
-    private val _hourCounter = MutableLiveData<Long>(0)
-    val hourCounter get() = _hourCounter
-
-    private val _minuteCounter = MutableLiveData<Long>(0)
-    val minuteCounter get() = _minuteCounter
+class CountdownViewModel(eventRepository: EventRepository = EventRepository()) : ViewModel() {
+    val dayCounter = mutableStateOf<Long>(0)
+    val hourCounter = mutableStateOf<Long>(0)
+    val minuteCounter = mutableStateOf<Long>(0)
 
     init {
-        val dDay = Calendar.getInstance()
-        dDay.set(2021, Calendar.FEBRUARY, 19, 8, 0, 0)
+        val firstDay = eventRepository.getEventDates().minByOrNull { it.timeInMillis }!!
         viewModelScope.launch {
             while (true) {
-                updateCountdown(dDay)
+                updateCountdown(firstDay)
                 delay(TimeUnit.MINUTES.toMillis(1))
             }
         }
@@ -33,12 +28,12 @@ class CountdownViewModel : ViewModel() {
         val daysLeftInMillis: Long = dDay.timeInMillis - Calendar.getInstance().timeInMillis
         if (daysLeftInMillis <= 0) return
 
-        _dayCounter.value = daysLeftInMillis / TimeUnit.DAYS.toMillis(1)
+        dayCounter.value = daysLeftInMillis / TimeUnit.DAYS.toMillis(1)
         val hoursLeftInMillis: Long = daysLeftInMillis % TimeUnit.DAYS.toMillis(1)
 
-        _hourCounter.value = hoursLeftInMillis / TimeUnit.HOURS.toMillis(1)
-        val minutesLeftInMillis = daysLeftInMillis % TimeUnit.MINUTES.toMillis(1)
+        hourCounter.value = hoursLeftInMillis / TimeUnit.HOURS.toMillis(1)
+        val minutesLeftInMillis = daysLeftInMillis % TimeUnit.HOURS.toMillis(1)
 
-        _minuteCounter.value = minutesLeftInMillis / TimeUnit.MINUTES.toMillis(1)
+        minuteCounter.value = minutesLeftInMillis / TimeUnit.MINUTES.toMillis(1)
     }
 }
