@@ -11,8 +11,7 @@ import app.compose.viewmodels.SessionsViewModel
 
 @Preview
 @Composable
-fun SessionsScreen(modifier: Modifier = Modifier) {
-    val viewModel: SessionsViewModel = viewModel()
+fun SessionsScreen(viewModel: SessionsViewModel = viewModel()) {
     Log.e("SessionsScreen", "$viewModel")
 
     val dayCounter = viewModel.dayCounter.observeAsState("").value

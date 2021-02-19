@@ -26,8 +26,7 @@ import app.compose.viewmodels.CountdownViewModel
 
 @Preview
 @Composable
-fun HomeToolbarContent(modifier: Modifier = Modifier) {
-    val viewModel: CountdownViewModel = viewModel()
+fun HomeToolbarContent(modifier: Modifier = Modifier, viewModel: CountdownViewModel = viewModel()) {
     val dayCounter = viewModel.dayCounter.observeAsState(0).value
     val hourCounter = viewModel.hourCounter.observeAsState(0).value
     val minuteCounter = viewModel.minuteCounter.observeAsState(0).value

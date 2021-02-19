@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.KEY_ROUTE
 import androidx.navigation.compose.NavHost
@@ -25,6 +26,9 @@ import app.compose.ui.dashboard.*
 import app.compose.ui.theme.ComposeTheme
 import app.compose.ui.theme.black
 import app.compose.ui.theme.white
+import app.compose.viewmodels.SessionsViewModel
+
+lateinit var sessionsViewModel: SessionsViewModel
 
 @Preview
 @Composable
@@ -38,6 +42,8 @@ fun ComposeApp(name: String = "Compose") {
         BottomNavigationScreens.Sessions,
         BottomNavigationScreens.About
     )
+
+    sessionsViewModel = viewModel()
 
     ComposeTheme {
         Scaffold(
@@ -55,8 +61,8 @@ private fun TopBar(navController: NavHostController, currentRoute: String?) {
     TopAppBar(
         elevation = 1.dp,
         backgroundColor = MaterialTheme.colors.background,
-        navigationIcon = { IconButton(onClick = {}) { Icon(Icons.Filled.Info,"") } },
-        actions = { IconButton(onClick = {}) { Icon(Icons.Filled.AccountCircle,"") } },
+        navigationIcon = { IconButton(onClick = {}) { Icon(Icons.Filled.Info, "") } },
+        actions = { IconButton(onClick = {}) { Icon(Icons.Filled.AccountCircle, "") } },
         title = {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -64,11 +70,16 @@ private fun TopBar(navController: NavHostController, currentRoute: String?) {
                 modifier = Modifier.fillMaxWidth().padding(end = 24.dp)
             ) {
                 when (currentRoute) {
-                    BottomNavigationScreens.Home.route -> HomeToolbarContent(modifier)
-                    BottomNavigationScreens.Feed.route -> FeedToolbarContent(modifier)
-                    BottomNavigationScreens.Sessions.route -> SessionsToolbarContent(modifier)
-                    BottomNavigationScreens.About.route -> AboutToolbarContent(modifier)
-                    else -> Text(text = stringResource(id = R.string.app_name))
+                    BottomNavigationScreens.Home.route ->
+                        HomeToolbarContent(modifier)
+                    BottomNavigationScreens.Feed.route ->
+                        FeedToolbarContent(modifier)
+                    BottomNavigationScreens.Sessions.route ->
+                        SessionsToolbarContent(modifier, sessionsViewModel)
+                    BottomNavigationScreens.About.route ->
+                        AboutToolbarContent(modifier)
+                    else ->
+                        Text(text = stringResource(id = R.string.app_name))
                 }
             }
         }
@@ -80,7 +91,7 @@ private fun Screens(navController: NavHostController) {
     NavHost(navController, startDestination = BottomNavigationScreens.Home.route) {
         composable(BottomNavigationScreens.Home.route) { Text(it.toString()) }
         composable(BottomNavigationScreens.Feed.route) { Text(it.toString()) }
-        composable(BottomNavigationScreens.Sessions.route) { SessionsScreen() }
+        composable(BottomNavigationScreens.Sessions.route) { SessionsScreen(sessionsViewModel) }
         composable(BottomNavigationScreens.About.route) { Text(it.toString()) }
     }
 }
@@ -94,7 +105,7 @@ fun BottomBar(
     BottomNavigation(backgroundColor = backgroundColor) {
         items.forEach { screen ->
             BottomNavigationItem(
-                icon = { Icon(screen.icon,"") },
+                icon = { Icon(screen.icon, "") },
                 label = { Text(stringResource(id = screen.labelId)) },
                 selected = currentRoute == screen.route,
                 alwaysShowLabels = true,
