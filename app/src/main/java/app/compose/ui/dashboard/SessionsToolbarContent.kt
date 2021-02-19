@@ -1,7 +1,10 @@
 package app.compose.ui.dashboard
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -21,8 +24,8 @@ import app.compose.R
 import app.compose.ui.sessionsViewModel
 import app.compose.ui.theme.aquaMarine
 import app.compose.ui.theme.fadedAquaMarine
+import app.compose.ui.theme.yellow
 import app.compose.viewmodels.SessionsViewModel
-import java.util.Calendar.DAY_OF_MONTH
 
 @Preview
 @Composable
@@ -30,28 +33,25 @@ fun SessionsToolbarContent(
     modifier: Modifier = Modifier,
     viewModel: SessionsViewModel = viewModel()
 ) {
-    val dayModifier = modifier
-        .clip(RoundedCornerShape(10))
-        .background(fadedAquaMarine)
-        .padding(horizontal = 8.dp)
-
     LazyRow(modifier = modifier) {
         itemsIndexed(items = sessionsViewModel.sessionDates.value,
             itemContent = { index, date ->
-                Column(
-                    modifier = dayModifier,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(
-                        text = "$date",
-                        style = MaterialTheme.typography.body2.copy(fontWeight = FontWeight.Bold),
-                        color = MaterialTheme.colors.primary
-                    )
-                    Text(
-                        text = "${stringResource(R.string.day)} ${index + 1}",
-                        style = MaterialTheme.typography.overline,
-                        color = aquaMarine
-                    )
+                val dayStyle = MaterialTheme.typography.body1.copy(fontWeight = FontWeight.Bold)
+                val dayLabel = "${stringResource(R.string.day)} ${index + 1}"
+                val dayLabelStyle = MaterialTheme.typography.overline
+
+                val bg = if (viewModel.selectedDate.value == date) yellow else fadedAquaMarine
+                val dayModifier = Modifier
+                    .fillMaxHeight()
+                    .padding(horizontal = 8.dp)
+                    .clip(RoundedCornerShape(15))
+                    .background(bg)
+                    .padding(horizontal = 8.dp)
+                    .clickable { viewModel.selectDate(date) }
+
+                Column(dayModifier, Arrangement.SpaceEvenly, Alignment.CenterHorizontally) {
+                    Text(text = "$date", style = dayStyle, color = MaterialTheme.colors.primary)
+                    Text(text = dayLabel, style = dayLabelStyle, color = aquaMarine)
                 }
             }
         )
