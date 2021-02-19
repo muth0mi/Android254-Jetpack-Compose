@@ -23,6 +23,10 @@ import androidx.navigation.compose.navigate
 import app.compose.R
 import app.compose.data.BottomNavigationScreens
 import app.compose.ui.dashboard.*
+import app.compose.ui.dashboard.toolbar.AboutToolbarContent
+import app.compose.ui.dashboard.toolbar.FeedToolbarContent
+import app.compose.ui.dashboard.toolbar.HomeToolbarContent
+import app.compose.ui.dashboard.toolbar.SessionsToolbarContent
 import app.compose.ui.theme.ComposeTheme
 import app.compose.ui.theme.black
 import app.compose.ui.theme.white

@@ -1,4 +1,4 @@
-package app.compose.ui.dashboard
+package app.compose.ui.dashboard.toolbar
 
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text

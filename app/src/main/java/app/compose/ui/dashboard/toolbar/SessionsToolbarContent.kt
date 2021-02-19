@@ -1,4 +1,4 @@
-package app.compose.ui.dashboard
+package app.compose.ui.dashboard.toolbar
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
