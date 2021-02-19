@@ -37,7 +37,7 @@ dependencies {
 
     implementation(Dependencies.Activity.activity)
 
-    implementation("com.github.moove-it:fakeit:v0.5")
+    implementation("com.github.javafaker:javafaker:1.0.2")
 
 
     implementation(Dependencies.AndroidX.core)
