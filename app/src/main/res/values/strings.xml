@@ -12,4 +12,8 @@
     <string name="day">Day</string>
 
     <string name="minutes">minutes</string>
+    <string name="keynoteSpkr">Keynote Speaker</string>
+    <string name="viewAll">View All</string>
+    <string name="speakers">Speakers</string>
+    <string name="organizedBy">Organized By:</string>
 </resources>

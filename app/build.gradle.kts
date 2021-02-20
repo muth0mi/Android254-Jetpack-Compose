@@ -38,6 +38,7 @@ dependencies {
     implementation(Dependencies.Activity.activity)
 
     implementation("com.github.javafaker:javafaker:1.0.2")
+    implementation ("dev.chrisbanes.accompanist:accompanist-coil:0.5.1")
 
 
     implementation(Dependencies.AndroidX.core)

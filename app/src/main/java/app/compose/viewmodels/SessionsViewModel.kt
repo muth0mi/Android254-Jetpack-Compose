@@ -24,9 +24,9 @@ class SessionsViewModel(
     val sessions = mutableStateOf(listOf<Session>())
     val daySessions = mutableStateOf(listOf<Session>())
 
-    private fun getSessions() {
+    private fun getSessions(count: Int? = null) {
         loadingSessions.value = true
-        sessions.value = sessionsRepository.getSessions()
+        sessions.value = sessionsRepository.getSessions(count)
         sessionDates.value = sessions.value.map { it.startTime.get(DAY_OF_MONTH) }.toSet().sorted()
         selectDate(sessionDates.value.first())
         loadingSessions.value = false

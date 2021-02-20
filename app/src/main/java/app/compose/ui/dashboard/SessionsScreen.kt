@@ -35,7 +35,7 @@ fun SessionsScreen(viewModel: SessionsViewModel = viewModel()) {
 
     Pager(state = pagerState) {
         viewModel.selectDate(viewModel.sessionDates.value[this.currentPage])
-        LazyColumn(modifier = Modifier.fillMaxSize().padding(vertical = 8.dp)) {
+        LazyColumn(modifier = Modifier.fillMaxSize().padding(top = 8.dp ,bottom = 56.dp)) {
             items(
                 items = viewModel.sessions.value,
                 itemContent = { SessionsCard(it) }

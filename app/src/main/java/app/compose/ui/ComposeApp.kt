@@ -63,7 +63,6 @@ private fun TopBar(navController: NavHostController, currentRoute: String?) {
     val modifier = Modifier.padding(6.dp).fillMaxHeight()
 
     TopAppBar(
-        elevation = 1.dp,
         backgroundColor = MaterialTheme.colors.background,
         navigationIcon = { IconButton(onClick = {}) { Icon(Icons.Filled.Info, "") } },
         actions = { IconButton(onClick = {}) { Icon(Icons.Filled.AccountCircle, "") } },
@@ -93,7 +92,7 @@ private fun TopBar(navController: NavHostController, currentRoute: String?) {
 @Composable
 private fun Screens(navController: NavHostController) {
     NavHost(navController, startDestination = BottomNavigationScreens.Home.route) {
-        composable(BottomNavigationScreens.Home.route) { Text(it.toString()) }
+        composable(BottomNavigationScreens.Home.route) { HomeScreen() }
         composable(BottomNavigationScreens.Feed.route) { Text(it.toString()) }
         composable(BottomNavigationScreens.Sessions.route) { SessionsScreen(sessionsViewModel) }
         composable(BottomNavigationScreens.About.route) { Text(it.toString()) }

@@ -32,7 +32,11 @@ class SessionsRepository(
                     venue = faker.rickAndMorty().location(),
                     title = faker.superhero().descriptor(),
                     description = faker.rickAndMorty().quote(),
-                    speaker = Speaker(faker.rickAndMorty().character()),
+                    speaker = Speaker(
+                        faker.rickAndMorty().character(),
+                        faker.avatar().image(),
+                        false
+                    ),
                     banner = listOf(
                         "https://ihub.co.ke/media/cache/imager/blog_main_image/wp-content/uploads/2018/07/droidcon-banner.png",
                         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzDCG8QFfgwd0HXvR1LnmI1AIoB-0QJN8zTw&usqp=CAU",
@@ -43,5 +47,20 @@ class SessionsRepository(
             }
         }
         return if (count == null) sessions else sessions.sortedBy { it.startTime }.subList(0, count)
+    }
+}
+
+class SpeakerRepository(private val faker: Faker = Faker()) {
+    fun getSpeakers(count: Int? = null): List<Speaker> {
+        val speakers = arrayListOf<Speaker>()
+        for (i in 0..25) {
+            val speaker = Speaker(
+                name = faker.funnyName().name(),
+                avatar = faker.avatar().image(),
+                isKeynote = i == 0
+            )
+            speakers.add(speaker)
+        }
+        return if (count == null) speakers else speakers.subList(0, count)
     }
 }
