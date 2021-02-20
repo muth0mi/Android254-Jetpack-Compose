@@ -3,8 +3,7 @@ package app.compose.data.repository
 import app.compose.data.models.Session
 import app.compose.data.models.Speaker
 import com.github.javafaker.Faker
-import java.util.*
-import java.util.Calendar.HOUR_OF_DAY
+import java.util.Calendar
 
 class EventRepository {
     fun getEventDates(): List<Calendar> {
@@ -25,13 +24,13 @@ class SessionsRepository(
     fun getSessions(count: Int? = null): List<Session> {
         val sessions = arrayListOf<Session>()
         eventRepository.getEventDates().forEach { day ->
-            listOf(8, 10, 12, 14, 16).forEach { hourOfDay ->
-                day.set(HOUR_OF_DAY, hourOfDay)
+            listOf(8, 10, 12, 14, 16, 18).forEach { hourOfDay ->
+                day.set(Calendar.HOUR_OF_DAY, hourOfDay)
                 val session = Session(
                     startTime = day,
                     durationInMinutes = 90,
                     venue = faker.rickAndMorty().location(),
-                    title = faker.hacker().adjective(),
+                    title = faker.superhero().descriptor(),
                     description = faker.rickAndMorty().quote(),
                     speaker = Speaker(faker.rickAndMorty().character()),
                     banner = listOf(

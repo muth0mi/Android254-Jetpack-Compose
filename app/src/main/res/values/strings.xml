@@ -5,9 +5,11 @@
     <string name="feed">Feed</string>
     <string name="sessions">Sessions</string>
     <string name="about">About</string>
-    
+
     <string name="days">Days</string>
     <string name="hrs">Hrs</string>
     <string name="min">Min</string>
     <string name="day">Day</string>
+
+    <string name="minutes">minutes</string>
 </resources>
