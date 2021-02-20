@@ -93,9 +93,9 @@ private fun TopBar(navController: NavHostController, currentRoute: String?) {
 private fun Screens(navController: NavHostController) {
     NavHost(navController, startDestination = BottomNavigationScreens.Home.route) {
         composable(BottomNavigationScreens.Home.route) { HomeScreen() }
-        composable(BottomNavigationScreens.Feed.route) { Text(it.toString()) }
+        composable(BottomNavigationScreens.Feed.route) { Text("Feed") }
         composable(BottomNavigationScreens.Sessions.route) { SessionsScreen(sessionsViewModel) }
-        composable(BottomNavigationScreens.About.route) { Text(it.toString()) }
+        composable(BottomNavigationScreens.About.route) { Text("About") }
     }
 }
 
