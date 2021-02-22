@@ -41,6 +41,14 @@ object Dependencies {
         const val activity = "androidx.activity:activity-compose:1.3.0-alpha02"
     }
 
+    object Accompanist {
+        const val coil = "dev.chrisbanes.accompanist:accompanist-coil:0.5.1"
+    }
+
+    object Faker {
+        const val faker = "com.github.javafaker:javafaker:1.0.2"
+    }
+
     object Material {
         const val material = "com.google.android.material:material:1.3.0"
     }
